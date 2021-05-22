@@ -1,0 +1,30 @@
+.event-form {
+  width: 100%;
+}
+
+.col-6 {
+  width: 40%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.col-3 {
+  width: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.col-12 {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.content-center {
+  display: flex;
+  justify-content: center;
+}
+
+.button-group .mat-button-base {
+  margin: 8px 8px 8px 0;
+}

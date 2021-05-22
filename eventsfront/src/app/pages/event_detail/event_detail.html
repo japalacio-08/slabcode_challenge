@@ -1,0 +1,118 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title *ngIf="currentId">
+      <a mat-button routerLink="/home" color="accent" routerLinkActive="active">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Go back
+      </a>
+      Edit event | Id: {{ currentId }}
+      <hr/>
+    </mat-card-title>
+    <mat-card-title *ngIf="!currentId">
+      <a mat-button routerLink="/home" color="accent"  routerLinkActive="active">
+        <mat-icon>arrow_back_ios</mat-icon>
+        Go back
+      </a>
+      Create new Event
+      <hr/>
+    </mat-card-title>
+    <mat-card-content>
+      <form class="event-form" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <mat-card-subtitle>Base Information</mat-card-subtitle>
+        <mat-form-field class="col-12">
+          <mat-label>Event Name</mat-label>
+          <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher"
+                 placeholder="Ex. This is an Event">
+          <mat-error *ngIf="name.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <mat-label>Description</mat-label>
+          <input type="text" matInput formControlName="description" [errorStateMatcher]="matcher"
+                 placeholder="Ex. This is an Event">
+          <mat-error *ngIf="description.hasError('required')">
+            Description is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12" *ngIf="locations$ | async as locations">
+          <mat-label>Select a City</mat-label>
+          <mat-select placeholder="Select a City" formControlName="location_id">
+            <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="locations" (filteredReturn)="searchLocations=$event"></mat-select-filter>
+            <mat-option *ngFor="let item of (searchLocations || locations)" [value]="item.id">
+              {{item.name}} - {{item.parent_name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="location_id.hasError('required')">
+            Location is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12" *ngIf="tagColors$ | async as tagColors">
+          <mat-label>Select a Color</mat-label>
+          <mat-select placeholder="Select a Color" name="tag_color_id" formControlName="tag_color_id">
+            <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="tagColors" (filteredReturn)="searchTagColors=$event"></mat-select-filter>
+            <mat-option *ngFor="let item of (searchTagColors || tagColors)" [value]="item.id">
+                <span class="col-6">
+                  {{item.name}}
+                </span>
+                <span class="col-6" [ngStyle]="{
+                      'background-color': item.hexa_value,
+                      'height': '20px',
+                      'margin': '2%',
+                      float: 'right'
+                  }">
+                </span>
+
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="tag_color_id.hasError('required')">
+            Location is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <br/>
+        <br/>
+        <mat-card-subtitle>
+          <hr/>
+          Schedule Information
+        </mat-card-subtitle>
+        <mat-form-field class="col-6">
+          <mat-label>Event Date</mat-label>
+          <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="event_date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="event_date.hasError('invalidDate')">
+            Event Date is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-3">
+          <mat-label>From</mat-label>
+          <input matInput type="time" formControlName="start_time">
+          <mat-error *ngIf="start_time.hasError('invalidDate')">
+            Start time is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-3">
+          <mat-label>To</mat-label>
+          <input matInput type="time" formControlName="end_time">
+          <mat-error *ngIf="end_time.hasError('invalidDate')">
+            Start time is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <hr/>
+        <div class="content-center button-group">
+          <button type="submit" mat-raised-button color="primary">Guardar</button>
+          <button type="reset" mat-raised-button color="warn">Cancelar</button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>

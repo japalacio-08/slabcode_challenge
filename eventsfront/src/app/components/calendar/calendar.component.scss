@@ -1,0 +1,17 @@
+.ul_days { margin: 0; padding: 0; list-style: none;}
+.ul_events { margin: 0; padding: 0; list-style: none;}
+li.day {
+  display: inline-block;
+  border: 1px solid #ccc;
+  width: calc(100%/7 - 2px);
+  text-align: center;
+  cursor: pointer;
+}
+li.event {
+  font-size: 5 !important;
+  font-weight: 0;
+}
+li.days {font-weight: bold;}
+li.grey {color: #ccc}
+li.month_days { max-height: 100px; height: 100px }
+li:hover {background-color: #ccc;}

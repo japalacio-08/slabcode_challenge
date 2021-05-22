@@ -1,0 +1,63 @@
+<mat-card *ngIf="!currentDayEvents.isSelected">
+  <mat-card-title>
+    Month Events
+    <hr/>
+  </mat-card-title>
+  <button (click)="setMonth(-1)">&lt;</button>
+  {{date | date}}
+  <button (click)="setMonth(+1)">&gt;</button>
+  <ul class="ul_days">
+    <li class="days day" *ngFor="let day of days" color="primary"> {{day}} </li>
+    <li *ngFor="let date of dates" [ngClass]="{grey: !isSameMonth(date), day: true}" class="month_days" (click)="selected.emit(date)">
+      <ul class="ul_events" *ngLet="dayEvents_(date) as dateEvents">
+        {{dateEvents.date | date:'d'}}
+        <li class="event" *ngFor="let event of dateEvents.events" [ngStyle]="{
+          'background-color': event.tag_color.hexa_value
+        }">
+          {{ event.name }}
+        </li>
+      </ul>
+
+    </li>
+  </ul>
+</mat-card>
+<mat-card *ngIf="currentDayEvents.isSelected">
+  <mat-card-title>
+    <button mat-icon-button (click)="unSelectDate()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    {{ currentDayEvents.date | date: 'MMM dd' }}
+    <hr/>
+  </mat-card-title>
+
+  <mat-nav-list>
+    <a matLine mat-list-item *ngFor="let event of currentDayEvents.events | async">
+      <mat-icon mat-list-icon [ngStyle]="{'background-color': event.tag_color.hexa_value, color: white}">span</mat-icon>
+      <a matLine [routerLink]="['/events', event.id]" routerLinkActive="active">
+        <b>{{ event.name | titlecase}}</b>
+      </a>
+
+      <a [routerLink]="['/events', event.id]" routerLinkActive="active" mat-raised-button color="primary">
+        <mat-icon>info</mat-icon>
+      </a>
+      <a mat-raised-button color="warn" (click)="dropEvent(event.id)">
+        <mat-icon>backspace</mat-icon>
+      </a>
+      <mat-divider></mat-divider>
+    </a>
+    <div matLine *ngIf="currentDayEvents.events | async as ev_">
+      <span *ngIf="ev_.length == 0">
+        There are no events assigned yet, do you want to create one?
+      </span>
+      <span *ngIf="ev_.length > 0">
+        Do you want to create one?
+      </span>
+      <a mat-icon-button routerLink="/events/new" [queryParams]="{event_date: formatDate(currentDayEvents) }" color="primary" routerLinkActive="active">
+        <span>Go to Create</span>
+        <mat-icon>arrow_forward_ios</mat-icon>
+      </a>
+    </div>
+  </mat-nav-list>
+</mat-card>
+
+

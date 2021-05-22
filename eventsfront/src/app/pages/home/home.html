@@ -1,0 +1,5 @@
+<div class="container">
+  <div *ngIf="eventsData$ | async as eventsData">
+    <event-calendar [events_]="eventsData" (selected)="fetchData($event)"></event-calendar>
+  </div>
+</div>

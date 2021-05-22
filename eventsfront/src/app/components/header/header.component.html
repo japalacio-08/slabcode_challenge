@@ -1,0 +1,25 @@
+
+<ng-container>
+  <mat-toolbar color="primary">
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>> -->
+    <span>Events App</span>
+    <span class="menu-spacer"></span>
+    <a mat-raised-button routerLink="/home" routerLinkActive="active" class="menu-button" aria-label="My Events">
+      <mat-icon>event_note</mat-icon>
+    </a>
+    <button mat-raised-button routerLink="/events/new" routerLinkActive="active"  class="menu-button" color="accent" aria-label="Create Event">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+  </mat-toolbar>
+</ng-container>
+
+<ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size = "large" color = "#fff"
+    type = "timer"
+    [fullScreen] = "true"
+  >
+    <p style="color: white" > Cargando información, por favor espere... </p>
+  </ngx-spinner>
