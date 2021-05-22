@@ -1,0 +1,18 @@
+version: '3.5' # We use version 3.5 syntax
+services: # Here we define our service(s)
+    web: # The name of the service
+      container_name: angularcontainer  # Container name
+      build: ./eventsfront # Location of our Dockerfile
+      volumes:
+        - ./eventsfront:/usr/src/app
+      ports:
+        - "4200:4200"
+      command: ng serve --host 0.0.0.0
+    api:
+      container_name: railscontainer  # Container name
+      build: ./events_api # Location of our Dockerfile
+      volumes: # Volume binding
+        - './events_api/:/usr/src/app' 
+      ports:
+        - '3000:3000' # Port mapping
+      command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
