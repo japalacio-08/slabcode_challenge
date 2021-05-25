@@ -10,4 +10,4 @@
 
 1. Run `docker-compose up --build web api` for a dev server.
 2. Navigate to `http://localhost:4200/` (Frontend App)
-3. Use cUrl or postman with `http://localhost:300` (API backend) 
+3. Use cUrl or postman with `http://localhost:3000` (API backend) 
