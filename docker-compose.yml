@@ -8,6 +8,8 @@ services: # Here we define our service(s)
       ports:
         - "4200:4200"
       command: ng serve --host 0.0.0.0
+      links: 
+        - api
     api:
       container_name: railscontainer  # Container name
       build: ./events_api # Location of our Dockerfile

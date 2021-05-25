@@ -3,8 +3,8 @@
 
 ## Requisites
 
-1. Install Docker.
-2. Install Docker Compose.
+1. Install Docker ( `version 20.10.5` ).
+2. Install Docker Compose ( `version 1.29.0` ).
 
 ## Development server
 
